@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Alexis 💙</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #4a90d9;
+      --blue-light: #a8cff5;
+      --blue-dark: #2563a8;
+      --white: #ffffff;
+      --soft: #eef6ff;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #ddeeff 0%, #f0f8ff 50%, #cce3f8 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── Floating hearts background ── */
+    .hearts-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      bottom: -60px;
+      font-size: 1.4rem;
+      opacity: 0;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(0.8) rotate(-10deg); opacity: 0; }
+      10%  { opacity: 0.55; }
+      90%  { opacity: 0.3; }
+      100% { transform: translateY(-110vh) scale(1.1) rotate(10deg); opacity: 0; }
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      padding: 24px 20px 16px;
+    }
+
+    nav button {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 11px 20px;
+      border: 2.5px solid var(--blue);
+      border-radius: 50px;
+      background: white;
+      color: var(--blue-dark);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(74,144,217,0.18);
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+    }
+    nav button:hover, nav button:active {
+      background: var(--blue);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(74,144,217,0.35);
+    }
+
+    /* ── Mobile (iPhone) ── */
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px 16px 10px;
+        gap: 10px;
+      }
+      nav button {
+        width: 100%;
+        font-size: 0.95rem;
+        padding: 14px 20px;
+        text-align: center;
+        white-space: normal;
+        border-radius: 16px;
+      }
+      .hero { padding: 24px 20px 40px; }
+      .hero h1 { font-size: 2.4rem; }
+      .hero p { font-size: 1rem; }
+      .modal { padding: 28px 22px; }
+      .modal h2 { font-size: 1.3rem; }
+      .modal p { font-size: 0.98rem; }
+      .reason-card p { font-size: 1.05rem; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 40px 20px 60px;
+    }
+    .hero h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2.4rem, 8vw, 4.5rem);
+      color: var(--blue-dark);
+      line-height: 1.2;
+      text-shadow: 2px 4px 12px rgba(74,144,217,0.2);
+      margin-bottom: 14px;
+      animation: fadeDown 0.9s ease both;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #5580a0;
+      animation: fadeDown 0.9s 0.2s ease both;
+      max-width: 420px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 80, 140, 0.35);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: 24px;
+      padding: 40px 36px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(37,99,168,0.25);
+      animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+      position: relative;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .modal .emoji { font-size: 2.8rem; margin-bottom: 12px; }
+    .modal h2 {
+      font-family: 'Pacifico', cursive;
+      color: var(--blue-dark);
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+    .modal p {
+      color: #446;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .modal .close-btn {
+      margin-top: 24px;
+      display: inline-block;
+      padding: 10px 30px;
+      background: var(--blue);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .modal .close-btn:hover {
+      background: var(--blue-dark);
+      transform: scale(1.05);
+    }
+
+    /* YouTube embed */
+    .yt-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+    .yt-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Photo placeholder */
+    .photo-box {
+      width: 100%;
+      max-width: 340px;
+      margin: 12px auto 0;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 4px solid var(--blue-light);
+      background: var(--soft);
+    }
+    .photo-box img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .photo-placeholder {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #7aadd4;
+      font-size: 0.9rem;
+      gap: 8px;
+    }
+    .photo-placeholder span { font-size: 3rem; }
+
+    /* Reason card */
+    .reason-card {
+      background: linear-gradient(135deg, #eef6ff, #ddeeff);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 12px;
+      border: 2px solid var(--blue-light);
+    }
+    .reason-card p {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+    }
+
+    .reroll-btn {
+      margin-top: 14px;
+      background: none;
+      border: 2px solid var(--blue);
+      color: var(--blue);
+      border-radius: 50px;
+      padding: 8px 22px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .reroll-btn:hover { background: var(--blue); color: white; }
+
+    /* ── Sparkle cursor trail ── */
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-size: 1.1rem;
+      animation: sparkFade 0.7s ease forwards;
+    }
+    @keyframes sparkFade {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-28px) scale(0.4); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating hearts background -->
+<div class="hearts-bg" id="heartsBg"></div>
+
+<!-- Nav -->
+<nav>
+  <button onclick="openSleep()">🌙 Open when you can't sleep</button>
+  <button onclick="openMiss()">📸 Open when you miss me</button>
+  <button onclick="openDoubt()">💪 Open when you doubt yourself</button>
+  <button onclick="openLove()">💙 Reasons I love you</button>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>Hi, Alexis 💙</h1>
+  <p>This little corner of the internet was made just for you, for all the moments you need it most. 🤍</p>
+</div>
+
+<!-- Modal: Can't sleep -->
+<div class="modal-overlay" id="modal-sleep">
+  <div class="modal">
+    <div class="emoji">🌙</div>
+    <h2>Can't sleep?</h2>
+    <p>Put on this song, close your eyes, and know I'm thinking of you. 💤</p>
+    <a href="https://www.youtube.com/watch?v=-eiLnSmrosY" target="_blank" style="display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:14px 28px;background:#ff0000;color:white;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:700;font-size:1rem;text-decoration:none;box-shadow:0 4px 16px rgba(255,0,0,0.3);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 0-3.39-3.39C14.76 3 12 3 12 3s-2.76 0-4.2.3A4.83 4.83 0 0 0 4.41 6.69 50.37 50.37 0 0 0 4 12a50.37 50.37 0 0 0 .41 5.31 4.83 4.83 0 0 0 3.39 3.39C9.24 21 12 21 12 21s2.76 0 4.2-.3a4.83 4.83 0 0 0 3.39-3.39A50.37 50.37 0 0 0 20 12a50.37 50.37 0 0 0-.41-5.31zM10 15V9l5.2 3z"/></svg>
+      Play on YouTube
+    </a>
+    <button class="close-btn" onclick="closeModal('modal-sleep')">Close ✕</button>
+  </div>
+</div>
+
+<!-- Modal: Miss me -->
+<div class="modal-overlay" id="modal-miss">
+  <div class="modal">
+    <div class="emoji">🤗</div>
+    <h2>I'm right here.</h2>
+    <p>Missing you back, always. 💙</p>
+    <div class="photo-box">
+      <!-- Replace the src below with your actual photo path, e.g. src="us.jpg" -->
+      <img id="our-photo" src="image.jpg" alt="" style="display:none"/>
+      <div class="photo-placeholder" id="photo-placeholder">
+        <span>📷</span>
+        <p style="color:#7aadd4;">Replace src in the code<br>with your photo!</p>
+      </div>
+    </div>
+    <button class="close-btn" onclick="closeModal('modal-miss')">Close ✕</button>
+  </div>
+</div>
+
+<!-- Modal: Doubt yourself -->
+<div class="modal-overlay" id="modal-doubt">
+  <div class="modal">
+    <div class="emoji">🌟</div>
+    <h2>Hey, listen to me.</h2>
+    <p style="font-size:1.2rem; font-weight:700; color:#2563a8;">I'm really proud of everything you do.</p>
+    <p style="margin-top:12px;">You are so much more capable than you give yourself credit for. Don't you ever forget that. 💙</p>
+    <button class="close-btn" onclick="closeModal('modal-doubt')">Thank you 💙</button>
+  </div>
+</div>
+
+<!-- Modal: Reasons I love you -->
+<div class="modal-overlay" id="modal-love">
+  <div class="modal">
+    <div class="emoji">💙</div>
+    <h2>A reason I love you…</h2>
+    <div class="reason-card">
+      <p id="reason-text"></p>
+    </div>
+    <button class="reroll-btn" onclick="newReason()">✨ Another one</button>
+    <br/>
+    <button class="close-btn" onclick="closeModal('modal-love')">Close ✕</button>
+  </div>
+</div>
+
+<script>
+  // ── Floating hearts ──
+  const heartsBg = document.getElementById('heartsBg');
+  const heartChars = ['💙','🤍','💎','✨','🫧','💠'];
+  for (let i = 0; i < 22; i++) {
+    const h = document.createElement('div');
+    h.classList.add('heart');
+    h.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.fontSize = (0.9 + Math.random() * 1.4) + 'rem';
+    const dur = 9 + Math.random() * 14;
+    const delay = Math.random() * -20;
+    h.style.animation = `floatUp ${dur}s ${delay}s linear infinite`;
+    heartsBg.appendChild(h);
+  }
+
+  // ── Sparkle cursor trail ──
+  document.addEventListener('mousemove', e => {
+    if (Math.random() > 0.35) return;
+    const s = document.createElement('div');
+    s.classList.add('sparkle');
+    s.textContent = ['✨','💙','⭐','🌟','💫'][Math.floor(Math.random()*5)];
+    s.style.left = e.clientX - 8 + 'px';
+    s.style.top  = e.clientY - 8 + 'px';
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 700);
+  });
+
+  // ── Modal helpers ──
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+  // Close on backdrop click
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) overlay.classList.remove('open');
+    });
+  });
+
+  function openSleep() { openModal('modal-sleep'); }
+  function openMiss()  { openModal('modal-miss'); }
+  function openDoubt() { openModal('modal-doubt'); }
+
+  // ── Reasons I love you ──
+  const reasons = [
+    "Your infectious smile",
+    "Your eyes",
+    "Your laugh",
+    "The things you do to me 😉",
+    "Your beautiful hair",
+    "Your soft skin",
+    "Your work ethic",
+    "Your love for me",
+    "Your kindness",
+    "Your ambition",
+    "Your gentleness",
+    "How you laugh at my silly jokes",
+    "When you smile at me being a dork",
+    "Your soft kisses",
+    "Your relentless affection",
+    "The way you wrap your arms around me",
+    "How you steal my clothes when you stay over",
+    "How beautiful you look when you wake up",
+    "How you look in the leggings I got you",
+    "You value my wants and opinions",
+    "I feel so relaxed when we cuddle",
+    "Because you stole my heart the moment we met",
+    "Because I never stop thinking about you",
+    "You make me happier than I knew I could be",
+    "You inspire me to be a better version of myself every day",
+    "You enjoy the meals I cook for you",
+    "You're always listening to everything I say"
+  ];
+
+  let lastReason = -1;
+  function newReason() {
+    let idx;
+    do { idx = Math.floor(Math.random() * reasons.length); } while (idx === lastReason);
+    lastReason = idx;
+    const el = document.getElementById('reason-text');
+    el.style.opacity = 0;
+    setTimeout(() => {
+      el.textContent = reasons[idx];
+      el.style.transition = 'opacity 0.4s';
+      el.style.opacity = 1;
+    }, 150);
+  }
+
+  function openLove() {
+    newReason();
+    openModal('modal-love');
+  }
+
+  // ── Photo swap logic ──
+  const img = document.getElementById('our-photo');
+  const placeholder = document.getElementById('photo-placeholder');
+  if (img.src && img.src !== window.location.href) {
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+  }
+</script>
+</body>
+</html>
